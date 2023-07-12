@@ -52,6 +52,14 @@ foreach($userDir in $userDirs) {
     if(Test-Path $ieDir) {
         Remove-Item -Path "$($ieDir)\*" -Recurse -Force -EA SilentlyContinue -Verbose
     }
+    
+    # Clear outlook cache
+    $outlookDir = "$($userDir.FullName)\AppData\Local\Microsoft\Outlook"
+
+    if(Test-Path $outlookDir) {
+        Remove-Item -Path "$($outlookDir)\*.ost" -Force -EA SilentlyContinue -Verbose
+        Remove-Item -Path "$($outlookDir)\*.nst" -Force -EA SilentlyContinue -Verbose
+    }
         
     # Clear thumb cache
     Remove-Item -Path "$($userDir.FullName)\AppData\Local\Microsoft\Windows\Explorer\thumbcache*.db" -Force -EA SilentlyContinue -Verbose
